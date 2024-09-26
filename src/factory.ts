@@ -5,7 +5,8 @@ import BaseEntity from "./entity/BaseEntity";
 import Circle from "./entity/Circle";
 import Polygon from "./entity/Polygon";
 import Star from "./entity/Star";
-import { ParticleOptions, StarOptions, PolygonOptions } from "./types";
+import Dice from "./entity/Dice";
+import { ParticleOptions, StarOptions, PolygonOptions, DiceOptions } from "./types";
 import { formatAlpha, sample, setEndPos, setEndRotation } from "./utils";
 
 const preProcess = (
@@ -13,7 +14,7 @@ const preProcess = (
   x: number,
   y: number,
   particle: ParticleOptions,
-  shapeType: typeof Circle | typeof Polygon | typeof Star
+  shapeType: typeof Circle | typeof Polygon | typeof Star | typeof Dice
 ) => {
   const num = sample(particle.number);
   let { radius, alpha = 1, lineWidth } = particle.shapeOptions;
@@ -47,6 +48,8 @@ const preProcess = (
             sample(
               shapeType === Star
                 ? (particle.shapeOptions as StarOptions).spikes
+                : shapeType === Dice
+                ? (particle.shapeOptions as DiceOptions).sides
                 : (particle.shapeOptions as PolygonOptions).sides
             ),
           ];
@@ -80,3 +83,11 @@ export const createPolygon = (
   y: number,
   particle: ParticleOptions
 ): Polygon[] => preProcess(ctx, x, y, particle, Polygon) as Polygon[];
+
+export const createDice = (
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  particle: ParticleOptions
+): Dice[] => preProcess(ctx, x, y, particle, Dice) as Dice[];
+

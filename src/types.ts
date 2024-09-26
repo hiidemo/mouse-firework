@@ -14,6 +14,10 @@ export type PolygonOptions = CircleOptions & {
   sides: number | [number, number];
 };
 
+export type DiceOptions = CircleOptions & {
+  sides: number | [number, number];
+};
+
 export type EmitOptions = {
   emitRadius?: number | [number, number]; // default [50, 180]
   radius?: number | [number, number]; // default 0.1
@@ -36,13 +40,13 @@ export type RotateOptions = {
 };
 
 export interface ParticleOptions {
-  shape: "circle" | "star" | "polygon";
+  shape: "circle" | "star" | "polygon" | "dice";
   move: Array<"emit" | "diffuse" | "rotate">;
   easing?: EasingTypes;
   colors: string[];
   number: number | [number, number];
   duration: number | [number, number];
-  shapeOptions: CircleOptions | StarOptions | PolygonOptions;
+  shapeOptions: CircleOptions | StarOptions | PolygonOptions | DiceOptions;
   moveOptions?: EmitOptions | DiffuseOptions | RotateOptions;
 }
 

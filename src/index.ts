@@ -8,7 +8,7 @@ import type {
 } from "./types";
 import { formatAlpha, hasAncestor, sample } from "./utils";
 import BaseEntity from "./entity/BaseEntity";
-import { createCircle, createStar, createPolygon } from "./factory";
+import { createCircle, createStar, createPolygon, createDice } from "./factory";
 
 const canvasEl = document.createElement("canvas");
 canvasEl.style.cssText =
@@ -142,6 +142,10 @@ const animateParticles = (x: number, y: number): void => {
         break;
       case "polygon":
         targets = createPolygon(ctx, x, y, particle);
+        break;
+      case "dice":
+        targets = createDice(ctx, x, y, particle);
+        break;
     }
     timeLine.add({
       targets,
